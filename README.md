@@ -2,7 +2,7 @@
 
 Source code and dataset for "[ERNIE: Enhanced Language Representation with Informative Entities](https://arxiv.org/abs/1905.07129)"
 
-#### Reqirements:
+### Reqirements:
 
 * Pytorch>=0.4.1
 * Python3
@@ -10,26 +10,26 @@ Source code and dataset for "[ERNIE: Enhanced Language Representation with Infor
 * boto3
 * requests
 
-#### Pre-trained Model
+### Pre-trained Model
 
-Download pre-trained knowledge embedding from [here](https://drive.google.com/open?id=1IyqqBtrZ9ujy_Ew4XEoJga6Ylcs27cFy) and unzip it.
+Download pre-trained knowledge embedding from [Google Drive](https://drive.google.com/open?id=14VNvGMtYWxuqT-PWDa8sD0e7hO486i8Y)/[Tsinghua Cloud](https://cloud.tsinghua.edu.cn/f/ebcfdb8975b740d4b60a/) and unzip it.
 
 ```shell
-unzip kg_embed.zip -d /path/to/ernie
+tar -xvzf kg_embed.tar.gz
 ```
 
-Download pre-trained ERNIE from [here](https://drive.google.com/open?id=1m673-YB-4j1ISNDlk5oZjpPF2El7vn6f) and unzip it.
+Download pre-trained ERNIE from [Google Drive](https://drive.google.com/open?id=1DVGADbyEgjjpsUlmQaqN6i043SZvHPu5)/[Tsinghua Cloud](https://cloud.tsinghua.edu.cn/f/8df2a3a6261e4643a68f/) and unzip it.
 
 ```shell
-unzip ernie_base.zip -d /path/to/ernie
+tar -xvzf ernie_base.tar.gz
 ```
 
-#### Fine-tune
+### Fine-tune
 
-As most datasets except FewRel don't have entity annotations, we use [TAGME](<https://tagme.d4science.org/tagme/>) to extract the entity mentions in the sentences and link them to their corresponding entitoes in KGs. We provide the annotated datasets [here](https://drive.google.com/open?id=1Q3YZg_3CUypuuJRL_GR4NMsufIvT3xqK).
+As most datasets except FewRel don't have entity annotations, we use [TAGME](<https://tagme.d4science.org/tagme/>) to extract the entity mentions in the sentences and link them to their corresponding entitoes in KGs. We provide the annotated datasets [Google Drive](https://drive.google.com/open?id=1HlWw7Q6-dFSm9jNSCh4VaBf1PlGqt9im)/[Tsinghua Cloud](https://cloud.tsinghua.edu.cn/f/32668247e4fd4f9789f2/).
 
 ```shell
-unzip data.zip -d /path/to/ernie
+tar -xvzf data.tar.gz
 ```
 
 In the root directory of the project, run the following codes to fine-tune ERNIE on different datasets.
@@ -78,7 +78,24 @@ python3 code/score.py gold_file pred_file
 
 You can find `gold_file` and `pred_file` on each checkpoint in the output folder (`--output_dir`).
 
-#### Cite
+**New Tasks:**
+
+If you want to use ERNIE in new tasks, you should follow these steps:
+
+* Use an entity-linking tool like TAGME to extract the entities in the text
+* Look for the Wikidata ID of the extracted entities
+* Take the text and entities sequence as input data
+
+Here is a quick-start example (`code/example.py`) using ERNIE for Masked Language Model. We show how to annotate the given sentence with TAGME and build the input data for ERNIE. Note that it will take some time (around 5 mins) to load the model.
+
+```shell
+# If you haven't installed tagme
+pip install tagme
+# Run example
+python3 code/example.py
+```
+
+### Cite
 
 If you use the code, please cite this paper:
 
